@@ -1,8 +1,9 @@
 import { COLORS, GAME_CONSTANTS } from "@/constants";
 import * as PIXI from "pixi.js";
 import { AudioManager } from "./AudioManager";
-import { ExplosionManager, TrailManager } from "./Effects";
-import { CIWS, Enemy, EnemyType, Projectile } from "./Entities";
+import { EnemyType } from "@/types";
+import { ExplosionManager, TrailManager } from "./effects";
+import { CIWS, Enemy, Projectile } from "./entities";
 
 export class GameEngine {
   private app: PIXI.Application;
