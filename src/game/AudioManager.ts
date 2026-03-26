@@ -15,11 +15,11 @@ export class AudioManager {
       const mod = await import("@pixi/sound");
       sound = mod.sound;
 
-      sound.add("gunfire", "/resources/mouse_click.wav");
-      sound.add("explosion_slow", "/resources/piano_0.wav");
-      sound.add("explosion_missile", "/resources/piano_1.wav");
-      sound.add("explosion_superfast", "/resources/piano_2.wav");
-      sound.add("explosion_ultrafast", "/resources/piano_3.wav");
+      sound.add("gunfire", "/resources/knok.wav");
+      sound.add("explosion_slow", "/resources/firework_3.wav");
+      sound.add("explosion_missile", "/resources/firework_2.wav");
+      sound.add("explosion_superfast", "/resources/firework_1.wav");
+      sound.add("explosion_ultrafast", "/resources/firework_0.wav");
 
       this.initialized = true;
     } catch (error) {
@@ -29,7 +29,7 @@ export class AudioManager {
 
   public playGunfire() {
     if (!this.initialized) return;
-    sound.play("gunfire", { volume: 0.2 });
+    sound.play("gunfire", { volume: 0.15 });
   }
 
   public playExplosionMissile() {
@@ -45,5 +45,10 @@ export class AudioManager {
   public playExplosionSlow() {
     if (!this.initialized) return;
     sound.play("explosion_slow", { volume: 0.6 });
+  }
+
+  public playExplosionUltrafast() {
+    if (!this.initialized) return;
+    sound.play("explosion_superfast", { volume: 0.9 });
   }
 }

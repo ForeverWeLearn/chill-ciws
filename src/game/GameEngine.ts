@@ -214,7 +214,9 @@ export class GameEngine {
         this.explosionManager.bigExplode(e.container.x, e.container.y);
 
         // Play variant-specific explosion sound
-        if (e.type === EnemyType.SUPERFAST)
+        if (e.type === EnemyType.ULTRAFAST)
+          this.audioManager.playExplosionUltrafast();
+        else if (e.type === EnemyType.SUPERFAST)
           this.audioManager.playExplosionSuperfast();
         else if (e.type === EnemyType.SLOW)
           this.audioManager.playExplosionSlow();
@@ -286,7 +288,9 @@ export class GameEngine {
     );
 
     // Play variant-specific explosion sound
-    if (enemy.type === EnemyType.SUPERFAST)
+    if (enemy.type === EnemyType.ULTRAFAST)
+      this.audioManager.playExplosionUltrafast();
+    else if (enemy.type === EnemyType.SUPERFAST)
       this.audioManager.playExplosionSuperfast();
     else if (enemy.type === EnemyType.SLOW)
       this.audioManager.playExplosionSlow();

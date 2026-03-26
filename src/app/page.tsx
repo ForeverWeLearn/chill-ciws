@@ -48,7 +48,7 @@ export default function App() {
               <Activity size={14} />
               <span>System Status: Active</span>
             </div>
-            <h1 className="text-4xl font-bold tracking-tighter">CHILL.CIWS</h1>
+            <h1 className="text-4xl font-bold tracking-tighter">CHILL\CIWS</h1>
             <div className="h-1 w-32 bg-white/10 mt-2 overflow-hidden">
               <motion.div
                 className="h-full bg-white"
@@ -104,7 +104,7 @@ export default function App() {
             </div>
             <div className="text-zinc-500 text-[10px] uppercase tracking-widest flex items-center gap-2">
               <Zap size={12} className="text-white" />
-              <span>Auto-Pilot Mode Enable</span>
+              <span>Auto-Pilot Enable</span>
             </div>
           </div>
         </div>

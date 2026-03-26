@@ -28,18 +28,11 @@ export const GAME_CONSTANTS = {
 
 export const ENEMY_STATS = {
   MISSILE: {
-    SPEED: 6,
-    HEALTH: 5,
+    SPEED: 5,
+    HEALTH: 3,
     RADIUS: 8,
     COLOR: COLORS.WHITE,
-    ACCURACY: 0.8,
-  },
-  SUPERFAST: {
-    SPEED: 10,
-    HEALTH: 2,
-    RADIUS: 6,
-    COLOR: COLORS.MAUVE,
-    ACCURACY: 0.92,
+    ACCURACY: 0.85,
   },
   ULTRAFAST: {
     SPEED: 15,
@@ -48,12 +41,19 @@ export const ENEMY_STATS = {
     COLOR: COLORS.RED,
     ACCURACY: 0.97,
   },
+  SUPERFAST: {
+    SPEED: 10,
+    HEALTH: 2,
+    RADIUS: 6,
+    COLOR: COLORS.MAUVE,
+    ACCURACY: 0.92,
+  },
   SLOW: {
     SPEED: 3,
-    HEALTH: 12,
+    HEALTH: 8,
     RADIUS: 12,
     COLOR: COLORS.ORANGE,
-    ACCURACY: 0.65,
+    ACCURACY: 0.7,
   },
 };
 

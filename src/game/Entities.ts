@@ -254,8 +254,8 @@ export class CIWS extends Entity {
     while (normalized < -Math.PI) normalized += Math.PI * 2;
     while (normalized > Math.PI) normalized -= Math.PI * 2;
 
-    // Limit to 160 degree arc (+/- 80 degrees from up)
-    const limit = (80 * Math.PI) / 180;
+    // Limit to 140 degree arc (+/- 80 degrees from up)
+    const limit = (70 * Math.PI) / 180;
     normalized = Math.max(-limit, Math.min(limit, normalized));
 
     this.targetAngle = normalized - Math.PI / 2;
