@@ -1,0 +1,63 @@
+export const COLORS = {
+  BACKGROUND: 0x0a0a0a,
+  WHITE: 0xffffff,
+  MAUVE: 0xa977ff,
+  ORANGE: 0xffa719,
+  RED: 0xff5b3a,
+  GUN_MUZZLE_CORE: 0xffcd8c,
+  GUN_MUZZLE_OUTER: 0xff8543,
+  GUN_MUZZLE_STREAK: 0xffcc00,
+  SMOKE: 0x666666,
+  EXPLOSION_FIRE: 0xff4400,
+  EXPLOSION_SPARK: 0xffaa00,
+  EXPLOSION_CORE: 0xffffff,
+  CIWS_BASE: 0xffffff,
+  CIWS_BARREL: 0xffffff,
+};
+
+export const GAME_CONSTANTS = {
+  BACKGROUND_COLOR: COLORS.BACKGROUND,
+  CIWS_Y_OFFSET: 60,
+  SPAWN_RATE_DEFAULT: 60,
+  PROJECTILE_SPEED: 8,
+  BULLET_SPREAD: 0.08,
+  FIRE_RATE: 3,
+  ROTATION_SPEED: 0.08,
+  ALIGNMENT_THRESHOLD: 0.1, // ~5 degrees
+};
+
+export const ENEMY_STATS = {
+  MISSILE: {
+    SPEED: 6,
+    HEALTH: 1,
+    RADIUS: 8,
+    COLOR: COLORS.WHITE,
+    ACCURACY: 0.8,
+  },
+  SUPERFAST: {
+    SPEED: 10,
+    HEALTH: 1,
+    RADIUS: 6,
+    COLOR: COLORS.MAUVE,
+    ACCURACY: 0.92,
+  },
+  ULTRAFAST: {
+    SPEED: 15,
+    HEALTH: 1,
+    RADIUS: 4,
+    COLOR: COLORS.RED,
+    ACCURACY: 0.97,
+  },
+  SLOW: {
+    SPEED: 3,
+    HEALTH: 3,
+    RADIUS: 12,
+    COLOR: COLORS.ORANGE,
+    ACCURACY: 0.65,
+  },
+};
+
+export const PROJECTILE_STATS = {
+  RADIUS: 2,
+  COLOR: COLORS.WHITE,
+};

@@ -1,65 +1,120 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { GameEngine } from "@/game/GameEngine";
+import { Activity, Shield, Target, Zap } from "lucide-react";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+
+export default function App() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const engineRef = useRef<GameEngine | null>(null);
+  const [stats, setStats] = useState({ score: 0, destroyed: 0, missed: 0 });
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      engineRef.current = new GameEngine(canvasRef.current);
+
+      const interval = setInterval(() => {
+        if (engineRef.current) {
+          setStats({
+            score: engineRef.current.score,
+            destroyed: engineRef.current.destroyedCount,
+            missed: engineRef.current.missedCount,
+          });
+        }
+      }, 100);
+
+      return () => {
+        clearInterval(interval);
+        engineRef.current?.destroy();
+      };
+    }
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden font-mono text-white select-none">
+      <canvas ref={canvasRef} className="block w-full h-full" />
+
+      {/* UI Overlay */}
+      <div className="absolute inset-0 pointer-events-none p-8 flex flex-col justify-between">
+        {/* Top Bar */}
+        <div className="flex justify-between items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex flex-col gap-2"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div className="flex items-center gap-3 text-zinc-500 text-xs uppercase tracking-[0.2em]">
+              <Activity size={14} />
+              <span>System Status: Active</span>
+            </div>
+            <h1 className="text-4xl font-bold tracking-tighter">CHILL.CIWS</h1>
+            <div className="h-1 w-32 bg-white/10 mt-2 overflow-hidden">
+              <motion.div
+                className="h-full bg-white"
+                animate={{ x: [-128, 128] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-right"
           >
-            Documentation
-          </a>
+            <div className="text-zinc-500 text-xs uppercase tracking-[0.2em] mb-1">
+              Combat Score
+            </div>
+            <div className="text-5xl font-bold tabular-nums tracking-tighter">
+              {stats.score.toLocaleString()}
+            </div>
+          </motion.div>
         </div>
-      </main>
+
+        {/* Bottom Bar */}
+        <div className="flex justify-between items-end">
+          <div className="flex gap-8">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2 text-zinc-500 text-[10px] uppercase tracking-widest">
+                <Target size={12} />
+                <span>Targets Neutralized</span>
+              </div>
+              <div className="text-2xl font-bold">{stats.destroyed}</div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2 text-zinc-500 text-[10px] uppercase tracking-widest">
+                <Shield size={12} />
+                <span>Targets Missed</span>
+              </div>
+              <div className="text-2xl font-bold">{stats.missed}</div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end gap-4">
+            <div className="flex gap-2">
+              {[1, 2, 3, 4].map((i) => (
+                <motion.div
+                  key={i}
+                  animate={{ opacity: [0.2, 1, 0.2] }}
+                  transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
+                  className="w-1 h-8 bg-white"
+                />
+              ))}
+            </div>
+            <div className="text-zinc-500 text-[10px] uppercase tracking-widest flex items-center gap-2">
+              <Zap size={12} className="text-white" />
+              <span>Auto-Pilot Mode Enable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scanline Effect */}
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] z-50" />
+
+      {/* Vignette */}
+      <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.8)]" />
     </div>
   );
 }
